@@ -84,6 +84,20 @@ namespace tps_Parser
     class Truss
     {
         public List<Component> Components { get; set; }
+        public List<Polygon> Polygons
+        {
+            get
+            {
+                List<Polygon> cur = new List<Polygon>();
+                int pointer = 0;
+                while (pointer<Components.Count())
+                {
+                    cur.Add(new Polygon(Components[pointer].Coordinates, false));
+                    pointer++;
+                }
+                return cur;
+            }
+        }
         public string TrussID { get; set; }
         public Truss(string TrussID)
         {
