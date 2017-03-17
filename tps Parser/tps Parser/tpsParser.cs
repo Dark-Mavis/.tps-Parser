@@ -78,7 +78,7 @@ namespace tps_Parser
         }
             static void Main(string[] args)
         {
-            tpsParser fred = new tpsParser("C:/Users/Cerullium/OneDrive/Work/.tps Parser/3.tps");
+            tpsParser fred = new tpsParser("C:/Users/Cerullium/OneDrive/Work/.tps Parser/3_MultiTruss.tps");
         }
     }
     class Truss
