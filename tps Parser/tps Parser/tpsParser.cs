@@ -12,8 +12,7 @@ namespace tps_Parser
 {
     class tpsParser
     {
-        private ArrayList file = new ArrayList();
-        private string[] data;
+        private List<string> file = new List<string>();
         private int location;
         public List<Truss> Trusses { get; set; }
         private bool EOD = false;
@@ -24,78 +23,71 @@ namespace tps_Parser
         }
         private void readInFile(string directory)
         {
-            using (StreamReader sr = File.OpenText(directory))
+            string[] lines = directory.Split('\n');
+            //it's lines.count-1 because the data split always adds a final line with nothing in it
+            for (int i = 0; i < lines.Count() - 1; i++)
             {
-                string s = String.Empty;
-                while ((s = sr.ReadLine()) != null)
-                {
-                    file.Add(s);
-                }
+                //getting rid of \r at the end of each string
+                lines[i] = lines[i].Substring(0, (lines[i].Count() - 1));
+                file.Add(lines[i]);
             }
         }
         private void createData(string directory)
         {
             readInFile(directory);
-            data = new string[file.Count];
-            for (int i = 0; i < file.Count; i++)
-            {
-                data[i] = (string)file[i];
-            }
             location = 0;
-            while (data[location].Substring(0,5)!="START")
+            while (file[location].Substring(0,5)!="START")
             {
                 location++;
             }
             while (!EOD)
             {
-                addTruss(data);
+                addTruss();
             }
         }
-        private void addTruss(string[] data)
+        private void addTruss()
         {
-            string TrussID = data[location].Substring(6);
-            Truss cur = new Truss(TrussID);
+            string TrussID = file[location].Substring(6);
+            Truss newTrussToBeAdded = new Truss(TrussID);
             location++;
-            while (data[location][0]=='#')
+            while (file[location][0]=='#')
             {
                 location++;
             }
-            while (data[location].Substring(0, 5) != "START")
+            while (file[location].Substring(0, 5) != "START")
             {
-                if (data[location][0] != '#')
+                if (file[location][0] != '#')
                 {
-                    int counter=cur.AddComponent(data, location);
-                    location = location + counter + 1;
+                    //use numberOfCoordinates to determine where the start of the next Truss is
+                    int numberOfCoordinates=newTrussToBeAdded.AddComponent(file, location);
+                    location = location + numberOfCoordinates + 1;
                 }
                 location++;
-                if (data[location]=="EOD")
+                if (file[location]=="EOD")
                 {
                     EOD = true;
                     break;
                 }
             }
-            Trusses.Add(cur);
-        }
-            static void Main(string[] args)
-        {
-            tpsParser fred = new tpsParser("C:/Users/Cerullium/OneDrive/Work/.tps Parser/3_MultiTruss.tps");
+            Trusses.Add(newTrussToBeAdded);
         }
     }
     class Truss
     {
         public List<Component> Components { get; set; }
+        //creates an List of Polygon Objects based on the List of Coordinate sets
         public List<Polygon> Polygons
         {
             get
             {
-                List<Polygon> cur = new List<Polygon>();
+                List<Polygon> newPolygons = new List<Polygon>();
                 int pointer = 0;
                 while (pointer<Components.Count())
                 {
-                    cur.Add(new Polygon(Components[pointer].Coordinates, false));
+                    newPolygons.Add(new Polygon(Components[pointer].Coordinates, false));
                     pointer++;
                 }
-                return cur;
+                return newPolygons;
             }
         }
         public string TrussID { get; set; }
@@ -104,25 +96,26 @@ namespace tps_Parser
             Components = new List<Component>();
             this.TrussID = TrussID;
         }
-        public int AddComponent(string[] data,int location)
+        public int AddComponent(List<string> data,int location)
         {
             ComponentID ID = enumComponentIDMaker(data[location][0]);
             int ComponentNumber = Convert.ToInt32(data[location].Substring(1,3));
-            Component cur = new Component(ID, ComponentNumber);
+            Component newComponent = new Component(ID, ComponentNumber);
             int pointer = 4;
             while (data[location][pointer]==' ')
             {
                 pointer++;
             }
-            int counter = Convert.ToInt32(data[location].Substring(pointer,1));
+            //the number of Coordinates is told in the header for each truss
+            int numberOfCoordinates = Convert.ToInt32(data[location].Substring(pointer,1));
             location++;
-            for(int i = 0; i < counter; i++)
+            for(int i = 0; i < numberOfCoordinates; i++)
             {
                 double[] tokens = getXAndY(data[location + i]);
-                cur.XY.Add(tokens);
+                newComponent.XY.Add(tokens);
             }
-            Components.Add(cur);
-            return counter;
+            Components.Add(newComponent);
+            return numberOfCoordinates;
         }
         private double[] getXAndY(string data)
         {
@@ -172,28 +165,28 @@ namespace tps_Parser
         {
             get
             {
-                List<Point> cur = new List<Point>();
+                List<Point> CoordinatesSet = new List<Point>();
                 int pointer =0;
                 while (pointer < XY.Count())
                 {
-                    cur.Add(new Point(new Inch(), XY[pointer][0], XY[pointer][1]));
+                    CoordinatesSet.Add(new Point(new Inch(), XY[pointer][0], XY[pointer][1]));
                     pointer++;
                 }
-                return cur;
+                return CoordinatesSet;
             }
             set
             {
-                List<double[]> cur = new List<double[]>();
+                List<double[]> newCoordinates = new List<double[]>();
                 int pointer = 0;
                 while (pointer < value.Count())
                 {
-                    double[] curcur = new double[2];
-                    curcur[0] = value[pointer].X.ValueInInches;
-                    curcur[1] = value[pointer].Y.ValueInInches;
-                    cur.Add(curcur);
+                    double[] currentCoordinate = new double[2];
+                    currentCoordinate[0] = value[pointer].X.ValueInInches;
+                    currentCoordinate[1] = value[pointer].Y.ValueInInches;
+                    newCoordinates.Add(currentCoordinate);
                     pointer++;
                 }
-                this.XY = cur;
+                this.XY = newCoordinates;
             }
         }
         public List<double[]> XY { get; set; }

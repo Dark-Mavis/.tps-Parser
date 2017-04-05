@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using tps_Parser.Properties;
 
 namespace tps_Parser
 {
     [TestFixture]
     class tpsParserTest
     {
-        tpsParser file3 = new tpsParser("C:/Users/Cerullium/OneDrive/Work/.tps Parser/3.tps");
-        tpsParser file102815 = new tpsParser("C:/Users/Cerullium/OneDrive/Work/.tps Parser/102815R-CDE.tps");
-        tpsParser file3_MultiTruss= new tpsParser("C:/Users/Cerullium/OneDrive/Work/.tps Parser/3_MultiTruss.tps");
+        tpsParser file3 = new tpsParser(Encoding.UTF8.GetString(Resources._3));
+        tpsParser file102815 = new tpsParser(Encoding.UTF8.GetString(Resources._102815R_CDE));
+        tpsParser file3_MultiTruss= new tpsParser(Encoding.UTF8.GetString(Resources._3_MultiTruss));
         [Test]
         public void TestTrussID()
         {

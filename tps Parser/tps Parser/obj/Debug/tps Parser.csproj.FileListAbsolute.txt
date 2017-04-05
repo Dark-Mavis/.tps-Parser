@@ -1,8 +1,5 @@
-C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\tps Parser.exe.config
-C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\tps Parser.exe
 C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\tps Parser.pdb
 C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\obj\Debug\tps Parser.csprojResolveAssemblyReference.cache
-C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\obj\Debug\tps Parser.exe
 C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\obj\Debug\tps Parser.pdb
 C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\clipper_library.dll
 C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\GeometryClassLibrary.dll
@@ -13,3 +10,8 @@ C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\Uni
 C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\MathNet.Numerics.xml
 C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\MoreLinq.Portable.xml
 C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\nunit.framework.xml
+C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\obj\Debug\tps_Parser.Properties.Resources.resources
+C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\obj\Debug\tps Parser.csproj.GenerateResource.Cache
+C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\tps Parser.dll.config
+C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\bin\Debug\tps Parser.dll
+C:\Users\Cerullium\OneDrive\Work\.tps Parser\tps Parser\tps Parser\obj\Debug\tps Parser.dll
